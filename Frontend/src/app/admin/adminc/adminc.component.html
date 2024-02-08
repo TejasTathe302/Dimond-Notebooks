@@ -1,0 +1,550 @@
+<app-navbar [aPageName]="adminpage"></app-navbar>
+<div *ngIf="loader" class="Loader">
+  <div class="loader" ></div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <h1 class="fw-bold">Payment Method & GST Amount</h1>
+  </div>
+  
+  <div class="row p-0 w-100 ">
+    <div class="col-md-6 p-4 overflow-hidden">
+      <div class="w-100 h-auto rounded shadow-lg manageHeight "
+        style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+        <h2 class="fw-bold p-3">Payment Methods Details
+          <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Payment Method Details')"
+            *ngIf="!paymentMethod">Get
+            details
+          </button>
+          <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Payment Method Details') "
+            *ngIf="paymentMethod">Hide
+            details
+          </button>
+        </h2>
+        <ng-container *ngIf="paymentMethod">
+          <table class="table table-bordered table-hover table-responsive ">
+            <thead class="table-dark">
+              <tr>
+                <th>Action</th>
+                <th>Sr.&nbsp;No.</th>
+                <th>Paper&nbsp;Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of payment; let i=index">
+                <td>
+                  <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Payment Method Details')">
+                    <i class="fa-solid fa-edit"></i>
+                  </button>&nbsp;
+                  <button class="btn btn-sm btn-danger" (click)="deletePayment(data.id,'Payment Method Details')">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </td>
+                <td>{{i+1}}</td>
+                <td>{{data.name}}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td><button class="btn btn-sm btn-primary" (click)="addNewDetails('Payment Method Details')">Add New</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col-md-6 p-4 overflow-hidden">
+      <div class="w-100 h-auto rounded shadow-lg manageHeight"
+        style="background: linear-gradient(45deg, rgb(238, 35, 35) 0%, rgb(243, 87, 157) 100%);">
+        <h2 class="fw-bold p-3">GST Amount Details
+          <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Gst Percent Details')" *ngIf="!GstData">Get
+            details
+          </button>
+          <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Gst Percent Details') " *ngIf="GstData">Hide
+            details
+          </button>
+        </h2>
+        <ng-container *ngIf="GstData">
+          <table class="table table-bordered table-hover table-responsive ">
+            <thead class="table-dark">
+              <tr>
+                <th>Action</th>
+                <th>Sr.&nbsp;No.</th>
+                <th>Cover&nbsp;Type</th>
+                <th>Gst Percent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of GstPercent; let i=index">
+                <td>
+                  <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Gst Percent Details')">
+                    <i class="fa-solid fa-edit"></i>
+                  </button>
+                </td>
+                <td>{{i+1}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.GstPercent}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <h1 class="fw-bold">Paper</h1>
+    </div>
+    <div class="row p-0 w-100 ">
+      <div class="col-md-6 p-4 overflow-hidden">
+        <div class="w-100 h-auto rounded shadow-lg manageHeight"
+          style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+          <h2 class="fw-bold p-3">Purches Paper customer
+            <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Purches Paper Customer Details')"
+              *ngIf="!paperCustomer">Get
+              details
+            </button>
+            <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Purches Paper Customer Details') "
+              *ngIf="paperCustomer">Hide
+              details
+            </button>
+          </h2>
+          <ng-container *ngIf="paperCustomer">
+            <table class="table table-bordered table-hover table-responsive ">
+              <thead class="table-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Sr.&nbsp;No.</th>
+                  <th>Paper&nbsp;Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of paperCustomerData; let i=index">
+                  <td>
+                    <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Purches Paper Customer Details')">
+                      <i class="fa-solid fa-edit"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-sm btn-danger" (click)="deletePayment(data.id,'Purches Paper Customer Details')">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><button class="btn btn-sm btn-primary" (click)="addNewDetails('Purches Paper Customer Details')">Add New</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-md-6 p-4 overflow-hidden">
+        <div class="w-100 h-auto rounded shadow-lg manageHeight"
+          style="background: linear-gradient(45deg, rgb(238, 35, 35) 0%, rgb(243, 87, 157) 100%);">
+          <h2 class="fw-bold p-3">Purches Paper Product Data
+            <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Purches Paper Product Details')"
+              *ngIf="!purchesPaperProduts">Get
+              details
+            </button>
+            <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Purches Paper Product Details') "
+              *ngIf="purchesPaperProduts">Hide
+              details
+            </button>
+          </h2>
+          <ng-container *ngIf="purchesPaperProduts">
+            <table class="table table-bordered table-hover table-responsive ">
+              <thead class="table-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Sr.&nbsp;No.</th>
+                  <th>Cover&nbsp;Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of purchesPaperProdutData; let i=index">
+                  <td>
+                    <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Purches Paper Product Details')">
+                      <i class="fa-solid fa-edit"></i>
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><button class="btn btn-sm btn-primary" (click)="addNewDetails('Purches Paper Product Details')">Add
+                      New</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <h1 class="fw-bold">Cover</h1>
+    </div>
+    <div class="row p-0 w-100 ">
+      <div class="col-md-6 p-4 overflow-hidden">
+        <div class="w-100 h-auto rounded shadow-lg manageHeight"
+          style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+          <h2 class="fw-bold p-3">Purches Cover customer
+            <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Purches Cover Customer Details')"
+              *ngIf="!coverCustomer">Get
+              details
+            </button>
+            <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Purches Cover Customer Details') "
+              *ngIf="coverCustomer">Hide
+              details
+            </button>
+          </h2>
+          <ng-container *ngIf="coverCustomer">
+            <table class="table table-bordered table-hover table-responsive ">
+              <thead class="table-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Sr.&nbsp;No.</th>
+                  <th>Paper&nbsp;Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of purchescoverCustomerData; let i=index">
+                  <td>
+                    <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Purches Cover Customer Details')">
+                      <i class="fa-solid fa-edit"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-sm btn-danger" (click)="deletePayment(data.id,'Purches Cover Customer Details')">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><button class="btn btn-sm btn-primary" (click)="addNewDetails('Purches Cover Customer Details')">Add New</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-md-6 p-4 overflow-hidden">
+        <div class="w-100 h-auto rounded shadow-lg manageHeight"
+          style="background: linear-gradient(45deg, rgb(238, 35, 35) 0%, rgb(243, 87, 157) 100%);">
+          <h2 class="fw-bold p-3">Purches Cover Product Data
+            <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Purches Cover Product Details')"
+              *ngIf="!purchesCoverProduts">Get
+              details
+            </button>
+            <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Purches Cover Product Details') "
+              *ngIf="purchesCoverProduts">Hide
+              details
+            </button>
+          </h2>
+          <ng-container *ngIf="purchesCoverProduts">
+            <table class="table table-bordered table-hover table-responsive ">
+              <thead class="table-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Sr.&nbsp;No.</th>
+                  <th>Cover&nbsp;Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of purchesCoverProdutData; let i=index">
+                  <td>
+                    <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Purches Cover Product Details')">
+                      <i class="fa-solid fa-edit"></i>
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><button class="btn btn-sm btn-primary" (click)="addNewDetails('Purches Cover Product Details')">Add
+                      New</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <h1 class="fw-bold">Manufacture</h1>
+    </div>
+    <div class="row p-0 w-100 ">
+      <div class="col-md-6 p-4 overflow-hidden">
+        <div class="w-100 h-auto rounded shadow-lg manageHeight"
+          style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+          <h2 class="fw-bold p-3">Manufacturer data
+            <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Manufacturer Details')"
+              *ngIf="!Manufacturer">Get
+              details
+            </button>
+            <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Manufacturer Details') "
+              *ngIf="Manufacturer">Hide
+              details
+            </button>
+          </h2>
+          <ng-container *ngIf="Manufacturer">
+            <table class="table table-bordered table-hover table-responsive ">
+              <thead class="table-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Sr.&nbsp;No.</th>
+                  <th>Paper&nbsp;Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of ManufacturerData; let i=index">
+                  <td>
+                    <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Manufacturer Details')">
+                      <i class="fa-solid fa-edit"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-sm btn-danger" (click)="deletePayment(data.id,'Manufacturer Details')">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><button class="btn btn-sm btn-primary" (click)="addNewDetails('Manufacturer Details')">Add New</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-md-6 p-4 overflow-hidden">
+        <div class="w-100 h-auto rounded shadow-lg manageHeight"
+          style="background: linear-gradient(45deg, rgb(238, 35, 35) 0%, rgb(243, 87, 157) 100%);">
+          <h2 class="fw-bold p-3">Manufactured Products Data
+            <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Manufactured Product Details')"
+              *ngIf="!ManufacturedProduts">Get
+              details
+            </button>
+            <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Manufactured Product Details') "
+              *ngIf="ManufacturedProduts">Hide
+              details
+            </button>
+          </h2>
+          <ng-container *ngIf="ManufacturedProduts">
+            <table class="table table-bordered table-hover table-responsive ">
+              <thead class="table-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Sr.&nbsp;No.</th>
+                  <th>Cover&nbsp;Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of ManufacturedProdutsData; let i=index">
+                  <td>
+                    <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Manufactured Product Details')">
+                      <i class="fa-solid fa-edit"></i>
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><button class="btn btn-sm btn-primary" (click)="addNewDetails('Manufactured Product Details')">Add
+                      New</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="row">
+      <h1 class="fw-bold">Sell</h1>
+    </div>
+    <div class="row p-0 w-100 ">
+      <div class="col-md-6 p-4 overflow-hidden">
+        <div class="w-100 h-auto rounded shadow-lg manageHeight"
+          style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+          <h2 class="fw-bold p-3">Sell Customer Data
+            <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Sell Customer Details')"
+              *ngIf="!SellCustomer">Get
+              details
+            </button>
+            <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Sell Customer Details') "
+              *ngIf="SellCustomer">Hide
+              details
+            </button>
+          </h2>
+          <ng-container *ngIf="SellCustomer">
+            <table class="table table-bordered table-hover table-responsive ">
+              <thead class="table-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Sr.&nbsp;No.</th>
+                  <th>Paper&nbsp;Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of SellCustomerData; let i=index">
+                  <td>
+                    <button class="btn btn-sm btn-secondary" (click)="getDataForEdit(data.id,'Sell Customer Details')">
+                      <i class="fa-solid fa-edit"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-sm btn-danger" (click)="deletePayment(data.id,'Sell Customer Details')">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><button class="btn btn-sm btn-primary" (click)="addNewDetails('Sell Customer Details')">Add New</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-md-6 p-4 overflow-hidden">
+        <div class="w-100 h-auto rounded shadow-lg manageHeight"
+          style="background: linear-gradient(45deg, rgb(238, 35, 35) 0%, rgb(243, 87, 157) 100%);">
+          <h2 class="fw-bold p-3">Admin Details 
+            <button class="float-end btn btn-primary btn-sm" (click)="openTable()"
+              *ngIf="!adminDetails">Get
+              details
+            </button>
+            <button class="float-end btn btn-warning btn-sm" (click)="hideAdminAllDetails() "
+              *ngIf="adminDetails">Hide
+              details
+            </button>
+          </h2>
+          <ng-container *ngIf="adminDetails">
+            <table class="table table-bordered table-hover table-responsive ">
+              <thead class="table-dark">
+                <tr>
+                  <th>Action</th>
+                  <th>Sr.&nbsp;No.</th>
+                  <th>Name</th>
+                  <th>Mobile</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of adminData; let i=index">
+                  <td>
+                    <button class="btn btn-sm btn-secondary" (click)="getAdminDataForEdit(data.id)">
+                      <i class="fa-solid fa-edit"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-sm btn-danger" (click)="deleteAdmin(data.id)">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                  <td>{{data.mobile}}</td>
+                  <td>{{data.email}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><button class="btn btn-sm btn-primary" (click)="addNew()">Add New</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+
+
+  <div class="modal" [class.show]="openModel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">{{Action}} {{method}}</h1>
+          <button type="button" class="btn-close" (click)="cancelEdit()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" [(ngModel)]="ngModelValue" class="form-control" placeholder="{{Action}} new {{method}} here..">
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="Action=='Edit'" type="button" class="btn btn-primary" (click)="EditDetails()">Update</button>
+          <button *ngIf="Action=='Add'" type="button" class="btn btn-primary" (click)="AddNewDetails()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" [class.show1]="openModel1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">{{adminAction}} {{adminMethod}}</h1>
+          <button type="button" class="btn-close" (click)="cancelAdminEdit()" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="AdmindetailsForm" >
+        <div class="modal-body">
+          Name
+          <input type="text" formControlName="name" class="form-control" placeholder="{{adminAction}} new admin name here..">
+          Mobile
+          <input type="text" formControlName="mobile" class="form-control" placeholder="{{adminAction}} new admin mobile here..">
+          Email
+          <input type="text" formControlName="email" class="form-control" placeholder="{{adminAction}} new admin email here..">
+          Password
+          <input type="text" formControlName="password" class="form-control" placeholder="{{adminAction}} new admin password here..">
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="adminAction=='Edit'" type="button" class="btn btn-primary" (click)="EditAdminDetails()">Update</button>
+          <button *ngIf="adminAction=='Add'" type="button" class="btn btn-primary" (click)="addNewAdminDetails()">Add</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" [class.show2]="openModel2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Enter admin code here to view admin details</h1>
+          <button type="button" class="btn-close" (click)="closeCodemodel()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="password" [(ngModel)]="adminCode" class="form-control" placeholder="Enter admin code here..">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="chechAdminCode()">Check Code</button>
+        </div>
+      </div>
+    </div>
+  </div>

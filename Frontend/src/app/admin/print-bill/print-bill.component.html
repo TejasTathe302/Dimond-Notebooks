@@ -1,0 +1,123 @@
+<div *ngIf="loader" class="Loader">
+    <div class="loader" ></div>
+  </div>
+<div class="container-fluid">
+    <div class="row p-0 m-0">
+        <div class="col-6" >
+             <img src="assets/user/logo/download.jpg" width="150px" height="150px">
+        </div>
+        <div class="col-6 p-4 text-end">
+            <span class="fw-bold">Dimond Notebooks Maharashtra </span><br>
+            At.Shevgaon Tal.Shevgaon<br>
+            Dist. A.Nagar,414502
+        </div>
+    </div>
+    <div class="row p-0" style="border-top: 1px solid rgb(64, 63, 63); border-bottom: 1px solid rgb(64, 63, 63); background-color: gray;">
+        <div class=" col-12 fw-bold text-center">
+           {{method}} Purches Bill
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-6 ">
+            <span class="fw-bold">Customer Name : </span>{{billInfo?.Vender_name}} <br>
+            <span class="fw-bold">Customer Mobile : </span>{{billInfo?.vendor_mobile}}
+        </div>
+        <div class="col-6 text-end">
+            <span class="fw-bold">Bill No : </span>{{billInfo?.id}} <br>
+            <span class="fw-bold">Bill Date : </span>{{billInfo?.date}}
+        </div>
+    </div>
+    <div class="row mt-3" style="border-top: 1px solid black;">
+        <div class="col-12">
+            <table class="table">
+                <thead >
+                    <tr>
+                  <th>#</th>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                  <th>Unit</th>
+                  <th>Price/Unit</th>
+                  <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider" style="font-weight: 400;">
+                    <tr *ngFor="let row of productInfo; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{row.productName}}</td>
+                        <td>{{row.quantity |number: '1.2-2'}}</td>
+                        <td>{{row.unit}}</td>
+                        <td>{{row.rate| number: '1.2-2'}}</td>
+                        <td>{{row.amount | number: '1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                  <th></th>
+                  <th>Total</th>
+                  <th>{{billInfo?.totalQuantity | number: '1.2-2'}}</th>
+                  <th></th>
+                  <th></th>
+                  <th>{{billInfo?.subTotal | number: '1.2-2'}}</th>
+                    </tr>
+                </tbody>
+              </table> 
+        </div>
+    </div>
+    <div class="row mt-3" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" >
+        <div class="col-5" style="color: rgb(204, 202, 202); font-size: 12px;">
+            <span class="fw-bold " >
+                Total Amount in Words </span><br>
+                {{str}} Only
+                <br>
+                <span class="fw-bold " >
+                    Terms And Conditions</span><br>
+                Thanks you for doing business with us. 
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-5" style="font-size: 14px;">
+            <table class="table table-borderless " style="font-weight: 400; border-bottom: 1px solid rgb(149, 147, 147);" >
+                <tr>
+                    <td>Sub Total</td>
+                    <td class="text-end"> &#8377; {{billInfo?.subTotal | number: '1.2-2'}}</td>
+                </tr>
+                <tr *ngIf="billInfo?.discountPercent > 0 && billInfo?.discountPercent>0">
+                    <td>Discount ({{billInfo?.discountPercent | number: '1.2-2'}}%)</td>
+                    <td class="text-end"> &#8377; {{billInfo?.discountAmount | number: '1.2-2'}}</td>
+                </tr>
+                <tr *ngIf="billInfo?.isGst">
+                    <td>GST({{billInfo?.gstPercent | number: '1.2-2'}}%)</td>
+                    <td class="text-end"> &#8377;{{billInfo?.gstAmount | number: '1.2-2'}}</td>
+                </tr>
+                <tr *ngIf="billInfo?.roundOffAmount > 0">
+                    <td>Round Off</td>
+                    <td class="text-end"> &#8377;{{billInfo?.roundOffAmount | number: '1.2-2'}}</td>
+                </tr>
+                <tr class="fw-bold">
+                    <td>Total</td>
+                    <td class="text-end"> &#8377;{{billInfo?.finalTotal | number: '1.2-2'}}</td>
+                </tr>
+                <tr *ngIf="billInfo?.balance >0">
+                    <td>Advance</td>
+                    <td class="text-end"> &#8377;{{billInfo?.AdvanceAmount | number: '1.2-2'}}</td>
+                </tr>
+                <tr *ngIf="billInfo?.balance >0">
+                    <td>Balance</td>
+                    <td class="text-end"> &#8377; {{billInfo?.balnce | number: '1.2-2'}}</td>
+                </tr>
+                <tr style="color: rgb(205, 203, 203);" *ngIf="billInfo?.savingAmount >0">
+                    <td>You Saved</td>
+                    <td class="text-end"> &#8377; {{billInfo?.savingAmount | number: '1.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td>Payment Method</td>
+                    <td class="text-end">{{billInfo?.paymentMethod }}</td>
+                </tr>
+            </table>
+            <div style="text-align: center; margin-top: 10px; font-size: 12px;">
+                For Dimond Notebooks
+                <br><br>
+                Authorized Sign
+            </div>
+        </div>
+    </div>
+</div>

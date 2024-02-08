@@ -1,0 +1,595 @@
+<app-navbar [aPageName]="adminpage"></app-navbar>
+<div *ngIf="loader" class="Loader">
+    <div class="loader"></div>
+</div>
+<div class="container-fluid w-100 m-0 p-0 overflow-hidden">
+    <div class="row  p-0 w-100">
+        <div class="col-12 p-4">
+            <div class=" h-auto rounded shadow-lg manageHeight table-responsive"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Company Details
+                    <button class="float-end btn btn-primary btn-sm mr-3" (click)="getCompanyDetails()"
+                        *ngIf="!companyDetails"><i class="fa-solid fa-eye"></i> &nbsp;Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm mr-3" (click)="getCompanyDetails() "
+                        *ngIf="companyDetails"><i class="fa-solid fa-eye"></i> &nbsp;Hide
+                        details
+                    </button>
+                    <button class="float-end btn btn-secondary btn-sm mr-3" (click)="editDet() "
+                        *ngIf="companyDetails && !edit"><i class="fa-solid fa-edit"></i>
+                        &nbsp;Edit&nbsp;Details</button>
+
+                </h2>
+                <ng-container *ngIf="companyDetails">
+                    <form (ngSubmit)="editCompanyDetails()" [formGroup]="CompanyDetailsForm"
+                        enctype="multipart/form-data" style="font-size: 15px; font-family: cursive;">
+                        <table class="table table-bordered table-hover m-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="w-25">Sr.&nbsp;No.</th>
+                                    <th>Name</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fw-bold">
+                                <tr>
+                                    <td>1</td>
+                                    <td>Name</td>
+                                    <td><input formControlName="name" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Mobile</td>
+                                    <td><input formControlName="address" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Address</td>
+                                    <td><input formControlName="mobile" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Email</td>
+                                    <td><input formControlName="email" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Description</td>
+                                    <td><textarea formControlName="description" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>FacebookLink</td>
+                                    <td><input formControlName="facebookLink" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>InstagramLink</td>
+                                    <td><input formControlName="instagramLink" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>linkdinLink</td>
+                                    <td><input formControlName="linkdinLink" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>TwiterLink</td>
+                                    <td><input formControlName="twiterLink" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>MapLocationUrl</td>
+                                    <td><input formControlName="mapLocationUrl" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>Logo</td>
+                                    <td>
+                                        <input formControlName="logo" [class.inpSelBtn]="!edit"
+                                            [class.form-control]="edit" type="file" (change)="onFileChange($event)"
+                                            *ngIf="edit">
+                                        <img src="http://127.0.0.1:8000{{file}}" height="50px" width="50px" alt="">
+                                    </td>
+
+                                </tr>
+                                <tr *ngIf="companyDetails && edit">
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn btn-secondary btn-sm mr-3" (click)="editDet() ">
+                                            <i class="fa-solid fa-edit"></i> &nbsp;Cancel&nbsp;Edit</button>
+                                        <button type="submit" class="btn btn-sm btn-primary">Edit</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row p-0 w-100 ">
+        <div class="col-12 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight table-responsive"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Slider Details
+                    <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Slider Details')"
+                        *ngIf="!sliderDetails"><i class="fa-solid fa-eye"></i>&nbsp;Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Slider Details') "
+                        *ngIf="sliderDetails"><i class="fa-solid fa-eye"></i>&nbsp;Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="sliderDetails">
+                    <table class="table table-bordered table-hover ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Action</th>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Heading</th>
+                                <th>Caption</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of SliderData; let i=index">
+                                <td>
+                                    <button class="btn btn-sm btn-secondary"
+                                        (click)="getDataForEdit(data.id,'Slider Details')">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </button>&nbsp;<button class="btn btn-sm btn-danger"
+                                        (click)="deleteData(data.id,'Slider Details')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                                <td>{{i+1}}</td>
+                                <td>{{data.heading}}</td>
+                                <td>{{data.caption}}</td>
+                                <td><img src="http://127.0.0.1:8000{{data.image}}" height="50px" width="75px" alt="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" (click)="addNewDetails('Slider Details')">Add
+                                        New</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row p-0 w-100 ">
+        <div class="col-12 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight table-responsive"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Product Details
+                    <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Product Details')"
+                        *ngIf="!productDetails"><i class="fa-solid fa-eye"></i>&nbsp;Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Product Details') "
+                        *ngIf="productDetails"><i class="fa-solid fa-eye"></i>&nbsp;Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="productDetails">
+                    <table class="table table-bordered table-hover ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Action</th>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of ProductData; let i=index">
+                                <td>
+                                    <button class="btn btn-sm btn-secondary"
+                                        (click)="getDataForEdit(data.id,'Product Details')">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </button>&nbsp;<button class="btn btn-sm btn-danger"
+                                        (click)="deleteData(data.id,'Product Details')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                                <td>{{i+1}}</td>
+                                <td>{{data.name}}</td>
+                                <td>{{data.category}}</td>
+                                <td>{{data.description}}</td>
+                                <td><img src="http://127.0.0.1:8000{{data.image}}" height="50px" width="75px" alt="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary"
+                                        (click)="addNewDetails('Product Details')">Add
+                                        New</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row p-0 w-100 ">
+        <div class="col-12 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight table-responsive"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Banner Details
+                    <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Banner Details')"
+                        *ngIf="!bannerDetails"><i class="fa-solid fa-eye"></i>&nbsp;Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Banner Details') "
+                        *ngIf="bannerDetails"><i class="fa-solid fa-eye"></i>&nbsp;Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="bannerDetails">
+                    <table class="table table-bordered table-hover ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Action</th>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Paege&nbsp;Name</th>
+                                <th>Heading</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of bannerData; let i=index">
+                                <td>
+                                    <button class="btn btn-sm btn-secondary"
+                                        (click)="getDataForEdit(data.id,'Banner Details')">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </button>
+                                </td>
+                                <td>{{i+1}}</td>
+                                <td>{{data.pageName}}</td>
+                                <td>{{data.heading}}</td>
+                                <td>{{data.description}}</td>
+                                <td><img src="http://127.0.0.1:8000{{data.image}}" height="50px" width="100px" alt="">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row p-0 w-100 ">
+        <div class="col-12 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight table-responsive"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Our Background Details
+                    <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Background Details')"
+                        *ngIf="!backgroundDetails"><i class="fa-solid fa-eye"></i>&nbsp;Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Background Details') "
+                        *ngIf="backgroundDetails"><i class="fa-solid fa-eye"></i>&nbsp;Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="backgroundDetails">
+                    <table class="table table-bordered table-hover ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Action</th>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Paege&nbsp;Name</th>
+                                <th>Heading</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of backgroundData; let i=index">
+                                <td>
+                                    <button class="btn btn-sm btn-secondary"
+                                        (click)="getDataForEdit(data.id,'Background Details')">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </button>
+                                </td>
+                                <td>{{i+1}}</td>
+                                <td>{{data.heading}}</td>
+                                <td>{{data.description_first}}</td>
+                                <td>{{data.description_second}}</td>
+                                <td><img src="http://127.0.0.1:8000{{data.image}}" height="50px" width="100px" alt="">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row p-0 w-100 ">
+        <div class="col-12 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight table-responsive"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Team Members Details
+                    <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Team Details')"
+                        *ngIf="!teamDetails"><i class="fa-solid fa-eye"></i>&nbsp;Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Team Details') "
+                        *ngIf="teamDetails"><i class="fa-solid fa-eye"></i>&nbsp;Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="teamDetails">
+                    <table class="table table-bordered table-hover ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Action</th>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Description</th>
+                                <th>Facebook&nbsp;Link</th>
+                                <th>Twiter&nbsp;Link</th>
+                                <th>Linkdin&nbsp;Link</th>
+                                <th>Instagram&nbsp;Link</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of teamData; let i=index">
+                                <td>
+                                    <button class="btn btn-sm btn-secondary"
+                                        (click)="getDataForEdit(data.id,'Team Details')">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </button>&nbsp;<button class="btn btn-sm btn-danger"
+                                        (click)="deleteData(data.id,'Team Details')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                                <td>{{i+1}}</td>
+                                <td>{{data.name}}</td>
+                                <td>{{data.position}}</td>
+                                <td>{{data.description}}</td>
+                                <td>{{data.facebookLink}}</td>
+                                <td>{{data.twiterLink}}</td>
+                                <td>{{data.linkdinLink}}</td>
+                                <td>{{data.instagramLink}}</td>
+                                <td><img src="http://127.0.0.1:8000{{data.image}}" height="50px" width="100px" alt="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" (click)="addNewDetails('Team Details')">Add
+                                        New</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row p-0 w-100 ">
+        <div class="col-12 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight table-responsive"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Working Area Details
+                    <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Working Area Details')"
+                        *ngIf="!workingDetails"><i class="fa-solid fa-eye"></i>&nbsp;Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Working Area Details') "
+                        *ngIf="workingDetails"><i class="fa-solid fa-eye"></i>&nbsp;Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="workingDetails">
+                    <table class="table table-bordered table-hover ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Action</th>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Heading</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of workingData; let i=index">
+                                <td>
+                                    <button class="btn btn-sm btn-secondary"
+                                        (click)="getDataForEdit(data.id,'Working Area Details')">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </button>&nbsp;<button class="btn btn-sm btn-danger"
+                                        (click)="deleteData(data.id,'Working Area Details')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                                <td>{{i+1}}</td>
+                                <td>{{data.heading}}</td>
+                                <td>{{data.description}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary"
+                                        (click)="addNewDetails('Working Area Details')">Add
+                                        New</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 w-100 ">
+        <div class="col-12 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight table-responsive"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">User Message Details
+                    <button class="float-end btn btn-primary btn-sm" (click)="getDetails('Message Details')"
+                        *ngIf="!messageDetails"><i class="fa-solid fa-eye"></i>&nbsp;Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="getDetails('Message Details') "
+                        *ngIf="messageDetails"><i class="fa-solid fa-eye"></i>&nbsp;Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="messageDetails">
+                    <table class="table table-bordered table-hover ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Action</th>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of messageData; let i=index">
+                                <td><button class="btn btn-sm btn-danger"
+                                        (click)="deleteData(data.id,'Message Details')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                                <td>{{i+1}}</td>
+                                <td>{{data.name}}</td>
+                                <td>{{data.email}}</td>
+                                <td>{{data.subject}}</td>
+                                <td>{{data.message}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
+<div class="modal" [class.show1]="openModel1">
+    <div class="modal-dialog">
+        <div class="modal-content overflow-scroll" style=" height: auto; max-height: 550px;">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">{{adminAction}} {{adminMethod}}</h1>
+                <button type="button" class="btn-close" (click)="cancelAdminEdit()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <ng-container *ngIf="first">
+                    {{firstInfo}}
+                    <input type="text" [(ngModel)]="firstText" class="form-control"
+                        placeholder=" enter new {{firstInfo}} here..">
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="second">
+                    {{secondInfo}}
+                    <input type="text" [(ngModel)]="secondText" class="form-control"
+                        placeholder=" enter new {{secondInfo}} here..">
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="category">
+                    Category
+                    <select [(ngModel)]="categoryValue" class="form-control">
+                        <option value="" selected disabled>Select Category</option>
+                        <option value="A4">A4</option>
+                        <option value="A5">A5</option>
+                        <option value="Jumbo">Jumbo</option>
+                        <option value="Rough">Rough</option>
+                    </select>
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="third">
+                    {{thirdInfo}}
+                    <input type="text" [(ngModel)]="thirdText" class="form-control"
+                        placeholder=" enter new {{thirdInfo}} here..">
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="fourth">
+                    {{fourthInfo}}
+                    <input type="text" [(ngModel)]="fourthText" class="form-control"
+                        placeholder=" enter new {{fourthInfo}} here..">
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="fifth">
+                    {{fifthInfo}}
+                    <input type="text" [(ngModel)]="fifthText" class="form-control"
+                        placeholder=" enter new {{fifthInfo}} here..">
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="sixth">
+                    {{sixthInfo}}
+                    <input type="text" [(ngModel)]="sixthText" class="form-control"
+                        placeholder=" enter new {{sixthInfo}} here..">
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="seventh">
+                    {{seventhInfo}}
+                    <input type="text" [(ngModel)]="seventhText" class="form-control"
+                        placeholder=" enter new {{seventhInfo}} here..">
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="image">
+                    Image
+                    <input type="file" class="form-control" (change)="onFileChangeSecond($event)"><br>
+                    <img src="http://127.0.0.1:8000{{secondFile}}" alt="" height="50px" width="75px" *ngIf="secondFile">
+                </ng-container>
+            </div>
+            <div class="modal-footer">
+                <button *ngIf="adminAction=='Edit'" type="button" class="btn btn-primary"
+                    (click)="EditAdminDetails()">Update</button>
+                <button *ngIf="adminAction=='Add'" type="button" class="btn btn-primary"
+                    (click)="addNewAdminDetails()">Add</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

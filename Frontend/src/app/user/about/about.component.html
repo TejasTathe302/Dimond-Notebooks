@@ -1,0 +1,141 @@
+<app-navbar [uPageName]="userPage"></app-navbar>
+<!-- Page Content -->
+<div *ngIf="loader" class="Loader">
+    <div class="loader"></div>
+  </div>
+  <div  style="margin-top: 80px; background-image:url('http://127.0.0.1:8000{{BannerDetails?.image}}');" class="page-heading header-text ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-content">
+                    <h4>{{BannerDetails?.heading}}</h4>
+                    <h2>{{BannerDetails?.description}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+<div class="best-features about-features">
+    <div class="container">
+        <div class="row" *ngFor="let data of backgroundDetails">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Our Background</h2>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="right-image">
+                    <img src="http://127.0.0.1:8000{{data.image}}" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="left-content">
+                    <h4>{{data.heading}}</h4>
+                    <p>{{data.description_first}}<br><br>{{data.description_second}}</p>
+                    <ul class="social-icons">
+                        <li><a href="{{companyDetails?.facebookLink}}"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="{{companyDetails?.twiterLink}}"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="{{companyDetails?.linkdinLink}}"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="{{companyDetails?.instagramLink}}"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="team-members">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Our Team Members</h2>
+                </div>
+            </div>
+            <div class="col-md-4" *ngFor="let data of teamDetails;">
+                <div class="team-member">
+                    <div class="thumb-container">
+                        <img src="http://127.0.0.1:8000{{data.image}}" alt="">
+                        <div class="hover-effect">
+                            <div class="hover-content">
+                                <ul class="social-icons">
+                                    <li><a href="{{data.facebookLink}}"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="{{data.twiterLink}}"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="{{data.linkdinLink}}"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="{{data.instagramLink}}"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="down-content">
+                        <h4>{{data.name}}</h4>
+                        <span>{{data.position}}</span>
+                        <p>{{data.description}}</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let data of workingDetails">
+                <div class="service-item">
+                    <div class="icon">
+                        <i class="fa fa-gear"></i>
+                    </div>
+                    <div class="down-content">
+                        <h4>{{data.heading}}</h4>
+                        <p>{{data.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="happy-clients">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Happy Partners</h2>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="owl-clients owl-carousel">
+                    <div class="client-item">
+                        <img src="/assets/user/images/client-01.png" alt="1">
+                    </div>
+
+                    <div class="client-item">
+                        <img src="/assets/user/images/client-01.png" alt="2">
+                    </div>
+
+                    <div class="client-item">
+                        <img src="/assets/user/images/client-01.png" alt="3">
+                    </div>
+
+                    <div class="client-item">
+                        <img src="/assets/user/images/client-01.png" alt="4">
+                    </div>
+
+                    <div class="client-item">
+                        <img src="/assets/user/images/client-01.png" alt="5">
+                    </div>
+
+                    <div class="client-item">
+                        <img src="/assets/user/images/client-01.png" alt="6">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

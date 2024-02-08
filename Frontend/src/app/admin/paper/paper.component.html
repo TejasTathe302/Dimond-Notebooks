@@ -1,0 +1,386 @@
+<app-navbar [aPageName]="adminpage"></app-navbar>
+<div *ngIf="loader" class="Loader">
+  <div class="loader"></div>
+</div>
+<div class="container-fluid p-2 overflow-hidden" style="background-color: rgb(238, 238, 238);font-size: 19px;">
+  <form [formGroup]="productForm">
+    <div class="row">
+      <div class="row pt-3">
+        <h1 class="fw-bold">{{method}} Purches Paper</h1>
+      </div>
+      <div class="row form-group mb-3 ">
+        <div class="d-inline d-md-none col-md-3 mt-2" style="text-align: end;">
+          Bill No : {{billNo}}<br>
+          Date : {{productForm.get('staticData.date')?.value}}
+        </div>
+        <ng-container formGroupName="staticData">
+          <div class="col-md-3 mt-2">
+            <select style="font-size: 19px;" #val formControlName="Vender_name" class="form-select p-0"
+              (change)="handleChange(val.value)">
+              <option value="" disabled selected hidden>Select Name Or Add New</option>
+              <ng-container *ngFor="let p of party">
+                <option [value]="p.name">{{ p.name }}</option>
+              </ng-container>
+              <option value="modal" class="text-primary">add new party</option>
+            </select>
+          </div>
+          <div class="col-md-3 mt-2">
+            <input type="number" style="font-size: 19px;" formControlName="vendor_mobile" placeholder="Phone number"
+              class="form-control  p-0">
+          </div>
+        </ng-container>
+        <div class="col-md-3 mt-2"></div>
+        <div class="d-none d-md-inline col-md-3 mt-2" style="text-align: end;">
+          Bill No : {{billNo}} <br>
+          Date : {{productForm.get('staticData.date')?.value}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="table-responsive p-0">
+        <table class="table table-hover table-bordered">
+          <thead class="table-dark text-white">
+            <tr>
+              <th scope="col">Action</th>
+              <th scope="col">Sr.No.</th>
+              <th scope="col">Item&nbsp;Name&nbsp;</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Unit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+              <th scope="col">Price/Unit</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="products">
+            <tr *ngFor="let product of productArray.controls; let i = index" [formGroupName]="i">
+              <td>
+                <button type="button" (click)="removeRow(i)"
+                  class="btn inpSelBtn btn-sm btn-outline-danger fw-bolder bbb"><i
+                    class="fa fa-trash text-danger"></i></button>
+              </td>
+              <td>
+                {{i+1}}
+              </td>
+              <td>
+                <select class="inpSelBtn" formControlName="productName" #inputField>
+                  <ng-container *ngFor="let pd of products">
+                    <option value="" selected disabled hidden>Select item name</option>
+                    <option [value]="pd.name">{{pd.name}}</option>
+                  </ng-container>
+                </select>
+              </td>
+              <td>
+                <input class="inpSelBtn" (keyup)="calculateAmount(i)" type="number" formControlName="quantity">
+              </td>
+              <td>
+                <select class="inpSelBtn" formControlName="unit" (change)="calculateAmount(i)">
+                  <ng-container *ngFor="let un of units">
+                    <option value="" selected disabled hidden>Select unit</option>
+                    <option [value]="un.name">{{un.name}}</option>
+                  </ng-container>
+                </select>
+              </td>
+              <td>
+                <input class="inpSelBtn" (keyup)="calculateAmount(i)" type="number" formControlName="rate">
+              </td>
+              <td>
+                {{product.get('amount')?.value | number: '1.2-2'}}
+              </td>
+            </tr>
+            <tr>
+              <td class="bg-body-secondary collapse-horizontal"><button
+                  class="btn inpSelBtn btn-sm btn-outline-primary fw-bolder" style="font-size: 16px;" (click)="addRow()"
+                  type="button">Add
+                  Row</button>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <hr class="p-2 m-0 fw-bolder">
+            </tr>
+            <tr style="font-size: 15px; font-weight: 600;">
+              <td class="text-center">Total</td>
+              <td></td>
+              <td><button class="btn inpSelBtn btn-sm btn-outline-primary " #addNewItemBtn style="font-size: 16px;"
+                  (dblclick)="openModal()" type="button">
+                  Add New item</button></td>
+              <td>{{productForm.get('staticData.totalQuantity')?.value | number: '1.2-2'}}</td>
+              <td></td>
+              <td></td>
+              <td>{{productForm.get('staticData.subTotal')?.value | number: '1.2-2'}} </td>
+            </tr>
+            <tr>
+              <hr class="p-2 m-0 ">
+            </tr>
+          </tbody>
+          <tbody>
+            <tr style="font-size:15px;">
+              <td class="text-sm-end">Paynment Method : </td>
+              <td>
+                <ng-container formGroupName="staticData">
+                  <select name="" id="" class="inpSelBtn" formControlName="paymentMethod" style="color:gray;">
+                    <ng-container *ngFor="let pym of paynmentMethod">
+                      <option [value]="pym.name">{{pym.name}}</option>
+                    </ng-container>
+                  </select>
+                </ng-container>
+              </td>
+              <td style="text-align: end;">Discount : </td>
+              <td>
+                <ng-container formGroupName="staticData">
+                  <input type="number" class="inpSelBtn" style="width: 90%;" placeholder="0.00"
+                    formControlName="discountPercent" #disc (keyup)="checkDiscount()">
+                  <span>%</span>
+                </ng-container>
+              </td>
+              <ng-container formGroupName="staticData">
+                <td>
+                  Round Off &nbsp;<input type="checkbox" formControlName="roundOff" class="form-check-input m-0"
+                    (change)="checkRoundOff()">
+                </td>
+                <td>
+                  <label> GST &nbsp;{{productForm.get('staticData.gstPercent')?.value | number: '1.2-2'}}%&nbsp;</label>
+                  <input type="checkbox" formControlName="isGST" (change)="checkGst()" class="form-check-input m-0" >
+                </td>
+              </ng-container>
+              <td></td>
+            </tr>
+            <tr style="font-size: 15px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <ng-container formGroupName="staticData">
+                  <input type="number" class="inpSelBtn" style="width: 90%;" placeholder="0.00"
+                    formControlName="discountAmount" (keyup)="checkDiscountAmount()">
+                  <span>&#8377;</span>
+                </ng-container>
+              </td>
+              <td>{{ productForm.get('staticData.roundOffAmount')?.value | number: '1.2-2'}}</td>
+              <td>{{ productForm.get('staticData.gstAmount')?.value | number: '1.2-2'}}</td>
+              <td></td>
+            </tr>
+            <tr style="font-weight: bold; font-size: 15px;">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                Total :<br>
+                Advance : <br>
+                Balance :<br>
+                <span style="font-weight: normal; color: gray;">You Saved :</span>
+              </td>
+              <td>
+                {{ productForm.get('staticData.finalTotal')?.value | number: '1.2-2'}}<br>
+                <ng-container formGroupName="staticData">
+                  <input class="inpSelBtn" type="number" formControlName="AdvanceAmount" (keyup)="calulateBalence() ">
+                </ng-container><br>
+                {{ productForm.get('staticData.balance')?.value | number: '1.2-2'}}<br>
+                <span style="font-weight: normal; color: gray;">{{ productForm.get('staticData.savingAmount')?.value |
+                  number: '1.2-2'}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="d-grid gap-5  d-flex justify-content-end" *ngIf="method==='Add new'">
+        <button class="btn btn-danger btn-sm" type="button" (click)="ClearBill()">Cancel</button>
+        <button class="btn btn-primary btn-sm" type="button" (click)="onSubmit(1)">Save</button>
+        <button class="btn btn-secondary btn-sm" type="button" (click)="onSubmit(2)">print</button>
+        &nbsp;
+      </div>
+      <div class="d-grid gap-5  d-flex justify-content-end" *ngIf="method==='Edit'">
+        <button class="btn btn-danger btn-sm" type="button" (click)="ClearBill()">Cancel</button>
+        <button class="btn btn-primary btn-sm" type="button" (click)="editPurchesMeterial(1)">Edit</button>
+        <button class="btn btn-secondary btn-sm" type="button" (click)="editPurchesMeterial(2)">Print</button>
+        &nbsp;
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container-fluid m-0" style="background-color: rgb(238, 238, 238); overflow: hidden;">
+  <div class="row" style="    background:linear-gradient(45deg, rgb(27, 25, 27) 0%, rgb(238, 35, 167) 100%);">
+    <div class="col-10">
+      <h1 style="font-weight: bolder; color: white; font-size: 30px;font-family: cursive;" class="mt-3">Available Paper
+        Details</h1>
+    </div>
+    <div class="col-2" style="display: flex; align-items: center; justify-content: center;">
+      <button class="btn btn-sm btn-primary" *ngIf="!stockdet" (click)="ManStockdet()">Get Details</button>
+      <button class="btn btn-sm btn-danger" *ngIf="stockdet" (click)="ManStockdet()">Hide Details</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="stockdet">
+    <div class="col-12 p-0">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover " style="font-size: 20px; font-family:cursive;">
+          <thead class="teblehead table-dark">
+            <tr>
+              <th> &nbsp;Sr.&nbsp;No.&nbsp; </th>
+              <th> &nbsp;Item&nbsp;Name&nbsp; </th>
+              <th> &nbsp;Quantity&nbsp; </th>
+              <th> &nbsp;Price/Piece&nbsp;(&#8377;)&nbsp; </th>
+              <th> &nbsp;Amount&nbsp;(&#8377;)&nbsp; </th>
+            </tr>
+          </thead>
+          <tbody class="tableBody">
+            <tr *ngFor="let data of products; let i=index">
+              <td>{{i+1}}</td>
+              <td>{{data.name }}</td>
+              <td>{{data.quantity | number: '1.2-2'}}</td>
+              <td>{{data.amount/data.quantity | number: '1.2-2'}}</td>
+              <td>{{data.amount | number: '1.2-2'}} </td>
+            </tr>
+            <tr class="fw-bold">
+              <td>Total</td>
+              <td></td>
+              <td>{{calculateTotal('quantity') | number: '1.2-2'}}</td>
+              <td></td>
+              <td>{{calculateTotal('amount') | number: '1.2-2'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" style="overflow: hidden;">
+  <div class="row" style="    background:linear-gradient(45deg, rgb(27, 25, 27) 0%, rgb(103, 35, 238) 100%);">
+    <div class="col-10">
+      <h1 style="font-weight: bolder; color: white; font-size: 30px;font-family: cursive;" class="mt-3">Previous Bill
+        Details</h1>
+    </div>
+    <div class="col-2" style="display: flex; align-items: center; justify-content: center;">
+      <button class="btn btn-sm btn-primary" *ngIf="!billdet" (click)="ManBilldet()">Get Bills</button>
+      <button class="btn btn-sm btn-danger" *ngIf="billdet" (click)="ManBilldet()">Hide Bills</button>
+    </div>
+  </div>
+  <ng-container *ngIf="billdet">
+    <div class="row p-0 pr-0">
+      <div class="col-3 p-0">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Select items per table</mat-label>
+          <mat-select [(ngModel)]="tableSize" (ngModelChange)="onTableSizeChange($event)">
+            <mat-option *ngFor="let size of tableSizes" [value]="size">{{ size }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Select Month</mat-label>
+          <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="onMonthChange($event)">
+            <mat-option *ngFor="let month of getMonths()" [value]="month">{{ month }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-6 p-0 ">
+        <mat-form-field class="example-full-width w-100">
+          <mat-label>Search</mat-label>
+          <input type="text" matInput placeholder="Search by name or date.." [(ngModel)]="searchText"
+            (keyup)="applySearchFilter()">
+          <mat-icon matSuffix><i class="fa-solid fa-magnifying-glass"></i></mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 p-0">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover " style="font-size: 15px; font-family:cursive;">
+            <thead class="teblehead table-dark">
+              <tr>
+                <th>Action</th>
+                <th> Sr.No. </th>
+                <th> &nbsp;Vendor&nbsp;Name&nbsp; </th>
+                <th> &nbsp;Mobile&nbsp; </th>
+                <th> P.Method </th>
+                <th> &nbsp;Total&nbsp;(&#8377;)&nbsp; </th>
+                <th> &nbsp;Advance&nbsp;(&#8377;)&nbsp; </th>
+                <th> &nbsp;Balance&nbsp;(&#8377;)&nbsp; </th>
+                <th> &nbsp;Date&nbsp;&nbsp; </th>
+              </tr>
+            </thead>
+            <tbody class="tableBody">
+              <tr *ngFor="let bill of filteredBills | paginate :{
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            }; let i = index">
+                <td>
+                  <button class="btn btn-sm btn-secondary" [routerLink]="['/admin/printBill', bill.id]"
+                    [queryParams]="{ method: 'paper' }"><i class="fa-solid fa-print"></i></button>&nbsp;
+                  <button class="btn btn-sm btn-warning" (click)="getForEditBill(bill.id)"><i
+                      class="fa-solid fa-edit"></i></button>
+                </td>
+                <td>{{ i+1 }}</td>
+                <td>{{ bill.Vender_name }}</td>
+                <td>{{ bill.vendor_mobile }}</td>
+                <td>{{ bill.paymentMethod }}</td>
+                <td>{{ bill.finalTotal }}</td>
+                <td>{{ bill.AdvanceAmount }}</td>
+                <td>{{ bill.balance }}</td>
+                <td>{{ bill.date }}</td>
+              </tr>
+              <tr class="fw-bold">
+                <td></td>
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td>{{calculateTotalt('finalTotal') | number: '1.2-2'}}</td>
+                <td>{{calculateTotalt('AdvanceAmount') | number: '1.2-2'}}</td>
+                <td>{{calculateTotalt('balance') | number: '1.2-2'}}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-end ">
+        <pagination-controls [previousLabel]="'Prev'" [nextLabel]="'Next'" (pageChange)="onTableDataChange($event)"
+          class="text-decoration-none"></pagination-controls>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<app-footer></app-footer>
+<div class="modal" [class.show]="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Add New Party Name</h1>
+        <button type="button" class="btn-close" (click)="closeModalDirect()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" #newParty class="form-control" placeholder="Add Party name here..">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal(newParty.value)">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal " [class.show1]="showModal1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Add new item name</h1>
+        <button type="button" class="btn-close" (click)="closeModal1Direct()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" #sd class="form-control" placeholder="Add item name here...">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="closeModal1(sd.value)">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

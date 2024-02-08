@@ -1,0 +1,135 @@
+<app-navbar [aPageName]="adminpage"></app-navbar>
+<div *ngIf="loader" class="Loader">
+    <div class="loader" ></div>
+  </div>
+<div class="container-fluid p-0 overflow-hidden" style="background-color: rgb(238, 238, 238);">
+    <div class="row">
+        <div  class="col-12 text-center ">
+            <h1 class="fw-bold" style="font-family: cursive; background-color: rgb(213, 216, 216);">Profit Chart</h1>
+        </div>
+    </div>
+    
+    <div class="row p-0">
+        <div class="col-md-2 d-flex align-items-center justify-content-center" style="height: auto;">
+            
+            <button class="btn btn-sm btn-primary mt-5" (click)="randomize()">
+                Chnage Chart Type
+            </button>
+        </div>
+        <div class="col-md-10">
+            <canvas class="chart charttt" baseChart [data]="barChartData" [options]="barChartOptions"
+                [type]="barChartType">
+            </canvas>
+        </div> 
+    </div>
+    <hr>
+    <div class="row">
+        <div  class="col-12 text-center ">
+            <h1 class="fw-bold" style="font-family: cursive; background-color: rgb(213, 216, 216);">Available Stock Details</h1>
+        </div>
+    </div>
+    <div class="row p-0 w-100 ">
+        <div class="col-md-6 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Available Paper stock
+                    <button class="float-end btn btn-primary btn-sm" (click)="checkPaperData()" *ngIf="!paperStock">Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="checkPaperData() " *ngIf="paperStock">Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="paperStock">
+                    <table class="table table-bordered table-hover table-responsive ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Paper&nbsp;Type</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of paper; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{data.name}}</td>
+                                <td>{{data.quantity | number: '1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+        <div class="col-md-6 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight"
+                style="background: linear-gradient(45deg, rgb(238, 35, 35) 0%, rgb(243, 87, 157) 100%);">
+                <h2 class="fw-bold p-3">Available Cover stock
+                    <button class="float-end btn btn-primary btn-sm" (click)="checkCoverData()" *ngIf="!coverStock">Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="checkCoverData() " *ngIf="coverStock">Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="coverStock">
+                    <table class="table table-bordered table-hover table-responsive ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Cover&nbsp;Type</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of cover; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{data.name}}</td>
+                                <td>{{data.quantity | number: '1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 w-100">
+        <div class="col-md-6 p-4 overflow-hidden">
+            <div class="w-100 h-auto rounded shadow-lg manageHeight"
+                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
+                <h2 class="fw-bold p-3">Available Product stock
+                    <button class="float-end btn btn-primary btn-sm" (click)="checkProductData()"
+                        *ngIf="!productStock">Get
+                        details
+                    </button>
+                    <button class="float-end btn btn-warning btn-sm" (click)="checkProductData() "
+                        *ngIf="productStock">Hide
+                        details
+                    </button>
+                </h2>
+                <ng-container *ngIf="productStock">
+                    <table class="table table-bordered table-hover table-responsive ">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Sr.&nbsp;No.</th>
+                                <th>Paper&nbsp;Type</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of products; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{data.name}}</td>
+                                <td>{{data.quantity | number: '1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<app-footer></app-footer>

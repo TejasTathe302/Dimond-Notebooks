@@ -1,0 +1,97 @@
+{
+  "PurchesPartyName": [
+    {
+      "id": 1,
+      "Name": "Tejas"
+    },
+    {
+      "Name": "Tathe",
+      "id": 2
+    },
+    {
+      "Name": "Vishal",
+      "id": 3
+    },
+    {
+      "Name": "fhg",
+      "id": 4
+    },
+    {
+      "Name": "Prasad Wandhekar",
+      "id": 5
+    },
+    {
+      "Name": "343",
+      "id": 6
+    },
+    {
+      "Name": "qqq",
+      "id": 7
+    },
+    {
+      "Name": "tt",
+      "id": 8
+    },
+    {
+      "Name": "omkar",
+      "id": 9
+    }
+  ],
+  "units": [
+    {
+      "id": 1,
+      "Name": "PCS"
+    },
+    {
+      "Name": "DZN",
+      "id": 2
+    }
+  ],
+  "paymentMethod": [
+    {
+      "id": 1,
+      "Name": "Cash"
+    },
+    {
+      "Name": "Online",
+      "id": 2
+    }
+  ],
+  "staticData": [
+    {
+      "id": 1,
+      "Vender_name": "tejas",
+      "vendor_mobile": 1234567890,
+      "paymentMethod": "Cash",
+      "isGST": true,
+      "gstAmount": 12.4,
+      "roundOff": false,
+      "roundOffAmount": 121,
+      "discountPercent": 212,
+      "discountAmount": 12,
+      "finalTotal": 12,
+      "AdvanceAmount": 211,
+      "balance": 12,
+      "savingAmount": 21,
+      "date": "01-21-1234"
+    },
+    {
+      "Vender_name": "Tejas",
+      "vendor_mobile": 9876543211,
+      "paymentMethod": "Cash",
+      "isGST": false,
+      "gstAmount": 531.72,
+      "roundOff": true,
+      "roundOffAmount": 0,
+      "discountPercent": 0,
+      "discountAmount": 0,
+      "finalTotal": 4431,
+      "AdvanceAmount": 4431,
+      "balance": 0,
+      "savingAmount": 0,
+      "date": "10-01-2024",
+      "id": 2
+    }
+  ],
+  "products": []
+}

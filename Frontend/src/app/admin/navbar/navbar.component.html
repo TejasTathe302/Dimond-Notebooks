@@ -1,0 +1,24 @@
+<nav>
+  <input type="checkbox" id="check">
+  <label for="check" class="checkbtn">
+    <i class="fas fa-bars"></i>
+  </label>
+  <label class="logo">Diamond &nbsp; <span class="text-warning">Notebooks</span></label>
+  <ul>
+    <li><a [class.active]="aPageName=='home'" routerLink="/admin/home">Home</a></li>
+    <li><a [class.active]="aPageName=='sell'"  routerLink="/admin/sell"><i class="fa-solid fa-plus"></i> SELL</a></li>
+    <li><a [class.active]="aPageName=='history'"  routerLink="/admin/history">Invoice</a></li>
+    <li><a [class.active]="aPageName=='paper'" routerLink="/admin/paper">Paper</a></li>
+    <li><a [class.active]="aPageName=='cover'" routerLink="/admin/cover">Cover</a></li>
+    <li><a [class.active]="aPageName=='manufacture'" routerLink="/admin/manufacture">Manufacture</a></li>
+    <li><a [class.active]="aPageName=='adminc'" routerLink="/admin/adminc">Admin </a></li>
+    <li><a [class.active]="aPageName=='userc'" routerLink="/admin/userc">User </a></li>
+    <li *ngIf="!AdminToken"><a [class.active]="aPageName=='login'"  routerLink="/admin/login"><i class="fa-solid fa-right-to-bracket"></i> Login </a></li>
+    <li *ngIf="AdminToken">
+      <a (click)="logOut()" style="cursor: pointer;" matTooltip=" Click to logout">
+         {{ adminName?.split(' ')[0] }} <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
+    </li>
+    
+  </ul>
+</nav>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vertical Menu Responsive || Learningrobo</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<style>
+    
+@import url('https://fonts.googleapis.com/css2?family=Overlock:wght@400;700&display=swap');
+*,*::after, *::before,body ,html{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Overlock' , sans-serif;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+            background: #1bee14;  
+            background: -webkit-linear-gradient(to right, #e9edea, #1bee14);  
+            background: linear-gradient(to right, #e9edea, #1bee14); 
+            
+    height: 100vh;
+    width: 100%;
+}
+header{
+    width: 250px;
+    height: 100%;
+}
+
+.open-menu{
+    width: 10px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #000;
+}
+
+.open-menu span{
+    width: 15px;
+    height: 60px;
+    padding: 0 2px;
+    position: fixed;
+    left: 0;
+    top: 45vh;
+    z-index: -2;
+    background-color: #000;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    -webkit-transition: top 1s;
+    transition: top 1s;
+}
+
+.open-menu i{
+    color: #dfe3ee;
+    position: absolute;
+    left: 3px;
+    top: 22px;
+}
+
+.nav{
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 4;
+    background-color: #000;
+    color: #e9edea;
+    transition: cubic-bezier(0.85, 0.18, 0.36, 1) left 1s;
+}
+
+.close-menu span{
+    width: 15px;
+    height: 60px;
+    padding: 0 2px;
+    position: absolute;
+    right: 0;
+    top: 45vh;
+    background-color: #e9edea;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    -webkit-transition: top 1s;
+    transition: top 1s;
+}
+
+.nav span i{
+    color: #000;
+    position: absolute;
+    left: 3px;
+    top: 22px;
+}
+
+.nav h1{
+    text-align: center;
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+input{
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    margin-left: 269px;
+    width: 30px;
+    height: 100%;
+    -webkit-transition: margin-left .5s;
+    transition: margin-left .5s;
+}
+
+input:checked{
+    opacity: 0%;
+    margin-left: -10px;
+    width: 30px;
+    height: 100%;
+    -webkit-transition: margin-left .5s ease-in;
+    transition: margin-left .5s ease-in;
+}
+
+input:checked + nav{
+    left: -300px;
+    transition: all 1s cubic-bezier(1, 0.05, 0.25, 0.96);
+}
+
+
+input:checked ~ span{
+    background-color: rgb(255, 255, 255);
+}
+
+.menu-items{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    line-height: 40px;
+    list-style-type: none;
+    margin-top: 40px;
+}
+
+.menu-item{
+    text-align: center;
+    width: 130px;
+    margin-top: 20px;
+    background-color: #e9edea;
+    color:#000;
+    transition: background-color 3s;
+    border-radius: 10px;
+}
+
+.menu-item:hover{
+    background-color: #1bee14;
+    transition: all .3s;
+}
+
+.menu-item:hover > a{
+    color: #000;
+}
+
+.menu-items a{
+    color: #000 ;
+    text-decoration: none;
+    transition: color s;
+}
+
+.container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    max-width: 85%;
+    position: relative;
+}
+
+.row {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.content{
+    padding: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+    font-size: 20px;
+}
+
+@media only screen and (max-height:580px) {
+    nav{
+        overflow: auto;
+        z-index: 5;
+    }
+    .container{
+        padding-bottom: 40px;
+    }
+    ::-webkit-scrollbar{
+        width: 12px;
+    }
+    ::-webkit-scrollbar-track{
+        background-color: #3b4d7e;
+    }
+    ::-webkit-scrollbar-thumb{
+        background-color:#3b4d7e;
+    }
+}
+
+
+::-webkit-scrollbar{
+    width: 12px;
+}
+::-webkit-scrollbar-track{
+    background-color: #f7f7f7;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #8b9dc3;
+}
+
+.credit a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 800;
+    }
+    
+    .credit {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin: 10px;
+      color:#000;
+      text-align: center;
+    }
+
+
+
+</style>
+</head>
+<body>
+  <header>
+    <div class="open-menu">
+      <span><i class="fa fa-arrow-right"></i></span>
+    </div>
+    <input type="checkbox" id="checkbox" checked>
+    <nav class="nav">
+      <div class="close-menu">
+        <span><i class="fa fa-arrow-left"></i></span>
+      </div>
+      <div class="hide-menu">
+        <div class="logo-wrapper">
+          <h1 class="logo">Learningrobo</h1>
+        </div>
+        <ul class="menu-items">
+          <li class="menu-item"><a href="#" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">About us</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Services</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Shop</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Blog</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Help</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Support</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Contant Us</a></li>
+          <br />
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="content">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus similique vel quia. Commodi, vel
+        aspernatur magni voluptates qui labore. Vero optio harum modi quaerat voluptas excepturi nobis. Sint
+        praesentium ex similique voluptates veniam commodi totam voluptatum possimus odit quam illo explicabo
+        veritatis voluptatibus nobis, iusto quisquam, magni repellendus blanditiis tempora corrupti.
+        Consequuntur, corporis odio. Tenetur ipsum deleniti incidunt non architecto vel? Ipsum consectetur
+        fugiat assumenda, adipisci odit quod quisquam accusamus. Culpa obcaecati harum excepturi esse ipsam
+        natus, distinctio incidunt.
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus similique vel quia. Commodi, vel
+        aspernatur magni voluptates qui labore. Vero optio harum modi quaerat voluptas excepturi nobis. Sint
+        praesentium ex similique voluptates veniam commodi totam voluptatum possimus odit quam illo explicabo
+        veritatis voluptatibus nobis, iusto quisquam, magni repellendus blanditiis tempora corrupti.
+        Consequuntur, corporis odio. Tenetur ipsum deleniti incidunt non architecto vel? Ipsum consectetur
+        fugiat assumenda, adipisci odit quod quisquam accusamus. Culpa obcaecati harum excepturi esse ipsam
+        natus, distinctio incidunt.
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus similique vel quia. Commodi, vel
+        aspernatur magni voluptates qui labore. Vero optio harum modi quaerat voluptas excepturi nobis. Sint
+        praesentium ex similique voluptates veniam commodi totam voluptatum possimus odit quam illo explicabo
+        veritatis voluptatibus nobis, iusto quisquam, magni repellendus blanditiis tempora corrupti.
+        Consequuntur, corporis odio. Tenetur ipsum deleniti incidunt non architecto vel? Ipsum consectetur
+        fugiat assumenda, adipisci odit quod quisquam accusamus. Culpa obcaecati harum excepturi esse ipsam
+        natus, distinctio incidunt.
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus similique vel quia. Commodi, vel
+        aspernatur magni voluptates qui labore. Vero optio harum modi quaerat voluptas excepturi nobis. Sint
+        praesentium ex similique voluptates veniam commodi totam voluptatum possimus odit quam illo explicabo
+        veritatis voluptatibus nobis, iusto quisquam, magni repellendus blanditiis tempora corrupti.
+        Consequuntur, corporis odio. Tenetur ipsum deleniti incidunt non architecto vel? Ipsum consectetur
+        fugiat assumenda, adipisci odit quod quisquam accusamus. Culpa obcaecati harum excepturi esse ipsam
+        natus, distinctio incidunt. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet, laborum mollitia
+        perferendis rem perspiciatis commodi architecto enim nisi ab. Fugit modi itaque autem suscipit nam libero ipsam
+        quibusdam voluptatum optio.
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. A, impedit? Delectus maiores libero molestias? Totam
+        blanditiis sit delectus quia ea? Facilis hic reiciendis odio quisquam voluptatum est velit corporis atque!
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

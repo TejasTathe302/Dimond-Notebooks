@@ -1,0 +1,59 @@
+<!-- footer section start -->
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <a routerLink="admin/"><img src="http://127.0.0.1:8000{{companyDetails?.logo}}" alt=""
+                        class="img-fluid logo-footer"></a>
+                <div class="footer-about">
+                    <p>{{companyDetails?.description}}</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="useful-link">
+                    <h2>Useful Links</h2>
+                    <div class="use-links">
+                        <li><a routerLink="/"><i class="fa-solid fa-angles-right"></i>Home&nbsp;&nbsp;&nbsp; </a></li>
+                        <li><a routerLink="/products"><i class="fa-solid fa-angles-right"></i>Product</a></li>
+                        <li><a routerLink="/about"><i class="fa-solid fa-angles-right"></i>About&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                        <li><a routerLink="/contact"><i class="fa-solid fa-angles-right"></i>Contact</a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="social-links">
+                    <h2>Follow Us</h2>
+                    <div class="social-icons">
+                        <li><a href="{{companyDetails?.facebookLink}}"><i class="fa-brands fa-facebook-f"></i>
+                                Facebook</a></li>
+                        <li><a href="{{companyDetails?.instagramLink}}"><i class="fa-brands fa-instagram"></i>
+                                Instagram</a></li>
+                        <li><a href="{{companyDetails?.linkdinLink}}"><i class="fa-brands fa-linkedin-in"></i>
+                                Linkedin&nbsp;&nbsp;</a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="address">
+                    <h2>Address</h2>
+                    <div class="address-links">
+                        <li class="address1"><i class="fa-solid fa-location-dot"></i>{{companyDetails?.address}}</li>
+                        <li><a href="tel:{{companyDetails?.mobile}}"><i class="fa-solid fa-phone"></i> +91
+                                {{companyDetails?.mobile}}</a></li>
+                        <li><a href="mailto:{{companyDetails?.email}}"><i class="fa-solid fa-envelope"></i>
+                                {{companyDetails?.email}}</a></li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer section end -->
+<!-- footer copy right section start -->
+<section id="copy-right">
+    <div class="copy-right-sec">Copyright <i class="fa-solid fa-copyright"></i> 2024
+        Design and Developed By <a href="tel:9579535583">Tejas Tathe</a>
+    </div>
+</section>
+<!-- footer copy right section end -->

@@ -1,0 +1,53 @@
+<app-navbar [uPageName]="userPage"></app-navbar>
+<!-- Page Content -->
+<div *ngIf="loader" class="Loader">
+    <div class="loader"></div>
+  </div>
+<div  style="margin-top: 80px; background-image:url('http://127.0.0.1:8000{{BannerDetails?.image}}');" class="page-heading header-text ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-content">
+                    <h4>{{BannerDetails?.heading}}</h4>
+                    <h2>{{BannerDetails?.description}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filters">
+                    <ul>
+                      <li [class.active]="filterDataBy === 'All'" (click)="filterData('All')">All Products</li>
+                      <ng-container *ngFor="let data of category">
+                        <li [class.active]="filterDataBy === data" (click)="filterData(data)">{{data}}</li>
+                      </ng-container>
+                    </ul>
+                  </div>                  
+            </div>
+            <div class="col-md-12">
+                <div class="filters-content">
+                    <div class="row grid">
+                        <div class="col-lg-4 col-md-4 all des " *ngFor="let data of filteredProducts; let i =index">
+                            <div class="product-item shadow">
+                                <a href="#"><img src="http://127.0.0.1:8000{{data.image}}" alt=""></a>
+                                <div class="down-content">
+                                    <a href="#">
+                                        <h4>{{data.name}}</h4>
+                                    </a>
+                                    <p>{{data.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

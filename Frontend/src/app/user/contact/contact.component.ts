@@ -33,7 +33,7 @@ export class ContactComponent {
   companyDetails:any
   getCompanyDetails() {
    this.loader=true
-    this.api.getCompanyDetails().subscribe((res: any) => {
+    this.api.getCompanyInfo().subscribe((res: any) => {
       this.companyDetails=res.data
       this.mapLocationUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.companyDetails.mapLocationUrl);
       this.loader=false

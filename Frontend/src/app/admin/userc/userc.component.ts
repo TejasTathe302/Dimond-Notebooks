@@ -25,11 +25,11 @@ export class UsercComponent {
     this.edit = !this.edit
   }
   companyId: any
-  getCompanyDetails() {
+  getCompanyDetailss() {
     this.edit = false
     this.companyDetails = !this.companyDetails;
     this.loader = true;
-    this.api.getCompanyDetails().subscribe((res: any) => {
+    this.api.getCompanyInfo().subscribe((res: any) => {
       this.loader = false
       const data = res.data;
       this.companyId = res.data.id
@@ -90,7 +90,7 @@ export class UsercComponent {
         }
         this.loader = false
         this.edit = !this.edit
-        this.getCompanyDetails()
+        this.getCompanyDetailss()
       }
       );
     } else {

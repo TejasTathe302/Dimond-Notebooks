@@ -9,8 +9,8 @@ from django.db.models import F
 from .serializers import BannerDetailsSerializer, CompanyBackgroundSerializer, CompanyProfileSerializer, GstPercentSerializer, InvoiceBillSerializer, InvoiceItemsSerializer, ManufactureDetailsSerializer, ManufactureProductDetailsSerializer, ManufactureProductNameSerializer, ManufacturerNameSerializer, ProductDetailsSerializer, PurchesBillSerializer, PurchesCoverBillSerializer, PurchesCoverItemSerializer, PurchesCoverItemsSerializer, PurchesCoverPartySerializer, PurchesItemsSerializer, PurchesPartySerializer, PurchesUnitSerializer, SellProductBillSerializer, SellProductItemsSerializer, SellProductLastBillSerializer, SellProductPartySerializer, SliderDetailsSerializer, TeamMembersSerializer, UserMessageSerializer, WorkingAreaSerializer, adminDetailsSerilizer, paymentMethodSerializer, purchesCoverProductNameSerializer, purchesProductNameSerializer
 # common code start 
 
-def emptyUrl(req):
-    return JsonResponse({"status":"success"})
+# def emptyUrl(req):
+#     return JsonResponse({"status":"success"})
 
 key='dimond'
 def sendToken(id):
@@ -636,27 +636,29 @@ def addManufactureProduct(request):
         bill_instance = purches_bill_serializer.save()
         for item_data in purches_items_serializer.validated_data:
             product_name = item_data['productName']
+            pages = item_data['pages']
             quantity = item_data['quantity']
             unit = item_data['unit']
             if(unit == "DZN"):
                 quantity=float(quantity)*12
+            totalPages=float(quantity)*float(pages)
             paper=item_data["paper"]
             paper_instance = purchesProductNameModel.objects.get(name=paper)
             paper_price_per_pice= float(paper_instance.amount)/float(paper_instance.quantity)
-            paper_instance.amount=float(paper_instance.amount)-float((float(paper_instance.amount)/float(paper_instance.quantity))*float(quantity))
-            paper_instance.quantity=float(paper_instance.quantity)-float(quantity)
-            paper_instance.save()
+            paper_instance.amount=float(paper_instance.amount)-float((float(paper_instance.amount)/float(paper_instance.quantity))*float(totalPages))
+            paper_instance.quantity=float(paper_instance.quantity)-float(totalPages)
             cover=item_data["cover"]
             cover_instance = purchesCoverProductNameModel.objects.get(name=cover)
             cover_price_per_pice=float(cover_instance.amount)/float(cover_instance.quantity)
             cover_instance.amount=float(cover_instance.amount)-float((float(cover_instance.amount)/float(cover_instance.quantity))*float(quantity))
             cover_instance.quantity=float(cover_instance.quantity)-float(quantity)
-            cover_instance.save()
-            rate = (float(paper_price_per_pice) + float(cover_price_per_pice) + float(item_data["manufacture_expences"]))*float(quantity)
+            rate = ((float(paper_price_per_pice)*totalPages) + float(cover_price_per_pice) + float(item_data["manufacture_expences"]))*float(quantity)
             product_instance = ManufactureProductNameModel.objects.get(name=product_name)
             product_instance.quantity = float(product_instance.quantity) + float(quantity)
             product_instance.amount = float(product_instance.amount) +  float(rate)
             product_instance.save()
+            paper_instance.save()
+            cover_instance.save()
             item_data["manufactureDetails"] = bill_instance 
             ManufactureProductDetailsModel.objects.create(**item_data)
         return JsonResponse({"status": "success", "token": sendToken(bill_instance.id)})
@@ -676,50 +678,55 @@ def editManufactureMeterial(req,id):
         for item_data in old_data:
             product_name = item_data.productName
             quantity = item_data.quantity
+            pages = item_data.pages
             unit = item_data.unit
             if(unit == "DZN"):
                 quantity=float(quantity)*12
             paper=item_data.paper
+            totalPages=float(quantity)*float(pages)
             paper_instance = purchesProductNameModel.objects.get(name=paper)
             paper_price_per_pice= float(paper_instance.amount)/float(paper_instance.quantity)
-            paper_instance.amount=float(paper_instance.amount)+float((float(paper_instance.amount)/float(paper_instance.quantity))*float(quantity))
-            paper_instance.quantity=float(paper_instance.quantity)+float(quantity)
-            paper_instance.save()
+            paper_instance.amount=float(paper_instance.amount)+float((float(paper_instance.amount)/float(paper_instance.quantity))*float(totalPages))
+            paper_instance.quantity=float(paper_instance.quantity)+float(totalPages)
             cover=item_data.cover
             cover_instance = purchesCoverProductNameModel.objects.get(name=cover)
             cover_price_per_pice=float(cover_instance.amount)/float(cover_instance.quantity)
             cover_instance.amount=float(cover_instance.amount)+float((float(cover_instance.amount)/float(cover_instance.quantity))*float(quantity))
             cover_instance.quantity=float(cover_instance.quantity)+float(quantity)
-            cover_instance.save()
-            rate = (float(paper_price_per_pice) + float(cover_price_per_pice) + float(item_data.manufacture_expences))*float(quantity)
+            rate = ((float(paper_price_per_pice)*totalPages) + float(cover_price_per_pice) + float(item_data["manufacture_expences"]))*float(quantity)
             product_instance = ManufactureProductNameModel.objects.get(name=product_name)
             product_instance.quantity = float(product_instance.quantity) - float(quantity)
             product_instance.amount = float(product_instance.amount) -  float(rate)
             product_instance.save()
+            paper_instance.save()
+            cover_instance.save()
+
         old_data.delete()
         for item_data in items_serializer.validated_data:
             product_name = item_data['productName']
             quantity = item_data['quantity']
+            pages = item_data['pages']
             unit = item_data['unit']
             if(unit == "DZN"):
                 quantity=float(quantity)*12
             paper=item_data["paper"]
+            totalPages=float(quantity)*float(pages)
             paper_instance = purchesProductNameModel.objects.get(name=paper)
             paper_price_per_pice= float(paper_instance.amount)/float(paper_instance.quantity)
-            paper_instance.amount=float(paper_instance.amount)-float((float(paper_instance.amount)/float(paper_instance.quantity))*float(quantity))
-            paper_instance.quantity=float(paper_instance.quantity)-float(quantity)
-            paper_instance.save()
+            paper_instance.amount=float(paper_instance.amount)-float((float(paper_instance.amount)/float(paper_instance.quantity))*float(totalPages))
+            paper_instance.quantity=float(paper_instance.quantity)-float(totalPages)
             cover=item_data["cover"]
             cover_instance = purchesCoverProductNameModel.objects.get(name=cover)
             cover_price_per_pice=float(cover_instance.amount)/float(cover_instance.quantity)
             cover_instance.amount=float(cover_instance.amount)-float((float(cover_instance.amount)/float(cover_instance.quantity))*float(quantity))
             cover_instance.quantity=float(cover_instance.quantity)-float(quantity)
-            cover_instance.save()
-            rate = (float(paper_price_per_pice) + float(cover_price_per_pice) + float(item_data["manufacture_expences"]))*float(quantity)
+            rate = ((float(paper_price_per_pice)*totalPages) + float(cover_price_per_pice) + float(item_data["manufacture_expences"]))*float(quantity)
             product_instance = ManufactureProductNameModel.objects.get(name=product_name)
             product_instance.quantity = float(product_instance.quantity) + float(quantity)
             product_instance.amount = float(product_instance.amount) +  float(rate)
             product_instance.save()
+            paper_instance.save()
+            cover_instance.save()
             item_data["manufactureDetails"] = bill_instance
             ManufactureProductDetailsModel.objects.create(**item_data)
         return JsonResponse({"status": "success", "token": sendToken(bill_instance.id)})
@@ -893,7 +900,7 @@ def editCompanyDetails(req,id):
         items.logo=req.data.get("logo")
     items.save()
     return JsonResponse({"status":"success"})
-
+ 
 @api_view(['GET'])
 def getCompanyDetails(req):
     first_entry = CompanyProfileModel.objects.first()

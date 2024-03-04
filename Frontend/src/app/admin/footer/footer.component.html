@@ -2,9 +2,10 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12 col-md-4 ">
-            <img src="/assets/user/logo/download-removebg-preview.png" height="90%" width="70%">
+            <ng-container *ngIf="companyDetails">
+              <img src="http://127.0.0.1:8000{{companyDetails.logo}}" height="90%" width="70%">
+            </ng-container>
           </div>
-
           <div class="col-xs-6 col-md-4">
             <h6>Admin Side</h6>
             <ul class="footer-links">
@@ -17,20 +18,15 @@
               <li><a routerLink="/admin/sell">Sell</a></li>
             </ul>
           </div>
-
           <div class="col-xs-6 col-md-4">
-            <h6>Admin Side</h6>
+            <h6>User Side</h6>
             <ul class="footer-links">
-              <li><a routerLink="/admin/home">Home</a></li>
-              <li><a routerLink="/admin/paper">Paper</a></li>
-              <li><a routerLink="/admin/cover">Contribute</a></li>
-              <li><a routerLink="/admin/manufacture">Manufacture</a></li>
-              <li><a routerLink="/admin/userc">User Control</a></li>
-              <li><a routerLink="/admin/adminc">Admin Control</a></li>
-              <li><a routerLink="/admin/sell">Sell</a></li>
+              <li><a routerLink="/">Home</a></li>
+              <li><a routerLink="/products">Products</a></li>
+              <li><a routerLink="/about">About</a></li>
+              <li><a routerLink="/contact">Contact</a></li>
             </ul>
           </div>
-
       </div>
       <hr>
     </div>
@@ -41,7 +37,6 @@
        <a href="tel:9579535583">Tejas Tathe</a>.
           </p>
         </div>
-
         <div class="col-md-4 col-sm-6 col-xs-12">
           <ul class="social-icons">
             <li><a class="facebook" href="https://www.facebook.com/banty.tathe/"><i class="fa-brands fa-facebook"></i></a></li>

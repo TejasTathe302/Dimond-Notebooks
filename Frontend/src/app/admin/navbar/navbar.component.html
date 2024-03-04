@@ -3,7 +3,7 @@
   <label for="check" class="checkbtn">
     <i class="fas fa-bars"></i>
   </label>
-  <label class="logo">Diamond &nbsp; <span class="text-warning">Notebooks</span></label>
+  <label class="logo">{{companyDetails?.name}}&nbsp;<span class="text-warning">Notebooks</span></label>
   <ul>
     <li><a [class.active]="aPageName=='home'" routerLink="/admin/home">Home</a></li>
     <li><a [class.active]="aPageName=='sell'"  routerLink="/admin/sell"><i class="fa-solid fa-plus"></i> SELL</a></li>

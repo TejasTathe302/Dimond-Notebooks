@@ -51,7 +51,7 @@ export class ManufactureComponent implements OnInit {
     if (newItem !== '') {
       var obj = { "name": newItem };
       this.loader = true;
-      this.api.addPurchesProductName(obj).subscribe((res) => {
+      this.api.addManufactureProductName(obj).subscribe((res) => {
         this.loader = false;
         this.router.navigate(['/admin']).then(() => {
           this.router.navigate(["/admin/manufacture"]);
@@ -133,6 +133,7 @@ export class ManufactureComponent implements OnInit {
       productName: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       paper: ['', Validators.required],
+      pages: ['', Validators.required],
       cover: ['', Validators.required],
       unit: ['', Validators.required],
       manufacture_expences: ['', Validators.required]
@@ -195,28 +196,28 @@ export class ManufactureComponent implements OnInit {
   }
   onSubmit(): void {
     if (this.productForm.valid) {
-      for (let data of this.productForm.value.products) {
-        let quanti = data.quantity;
-        if (data.unit === "DZN") {
-          quanti = quanti * 12;
-        }
-        for (let pa of this.paper) {
-          if (pa.name === data.paper) {
-            if (pa.quantity < quanti) {
-              alert("Please cheack Paper stock of " + data.paper)
-              return
-            }
-          }
-        }
-        for (let co of this.cover) {
-          if (co.name === data.cover) {
-            if (co.quantity < quanti) {
-              alert("Please cheack Cover stock of " + data.cover)
-              return
-            }
-          }
-        }
-      }
+      // for (let data of this.productForm.value.products) {
+      //   let quanti = data.quantity;
+      //   if (data.unit === "DZN") {
+      //     quanti = quanti * 12;
+      //   }
+      //   for (let pa of this.paper) {
+      //     if (pa.name === data.paper) {
+      //       if (pa.quantity < quanti) {
+      //         alert("Please cheack Paper stock of " + data.paper)
+      //         return
+      //       }
+      //     }
+      //   }
+      //   for (let co of this.cover) {
+      //     if (co.name === data.cover) {
+      //       if (co.quantity < quanti) {
+      //         alert("Please cheack Cover stock of " + data.cover)
+      //         return
+      //       }
+      //     }
+      //   }
+      // }
       this.loader = true;
       this.api.addManufactureProduct(this.productForm.value).subscribe((res: any) => {
         this.loader = false;

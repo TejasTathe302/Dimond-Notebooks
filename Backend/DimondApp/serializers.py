@@ -95,7 +95,7 @@ class ManufactureDetailsSerializer(serializers.ModelSerializer):
 class ManufactureProductDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ManufactureProductDetailsModel
-        fields = ["productName","quantity","paper","cover","unit","manufacture_expences"]
+        fields = ["productName","quantity","paper","pages","cover","unit","manufacture_expences"]
         extra_kwargs = {'manufactureDetails': {'required': False}}
 
 class ManufacturerNameSerializer(serializers.ModelSerializer):

@@ -14,7 +14,7 @@ export class FooterComponent {
   companyDetails:any
   getCompanyDetails() {
    this.loader=true
-    this.api.getCompanyDetails().subscribe((res: any) => {
+    this.api.getCompanyInfo().subscribe((res: any) => {
       this.companyDetails=res.data
       this.loader=false
     })

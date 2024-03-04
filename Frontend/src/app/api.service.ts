@@ -237,7 +237,7 @@ export class ApiService {
   editCompanyDetails(id:any,obj:any){
     return this.http.patch("http://127.0.0.1:8000/editCompanyDetails/"+id,obj);
   }
-  getCompanyDetails(){
+  getCompanyInfo(){
     return this.http.get("http://127.0.0.1:8000/getCompanyDetails/");
   }
   getSliderDetails(){

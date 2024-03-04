@@ -13,6 +13,16 @@ export class NavbarComponent {
   constructor(private api:ApiService, private router:Router){
     this.AdminToken=localStorage.getItem("AdminToken")
     this.getAdmin();
+    this.getCompanyDetails();
+  }
+  loader=false
+  companyDetails:any
+  getCompanyDetails() {
+   this.loader=true
+    this.api.getCompanyInfo().subscribe((res: any) => {
+      this.companyDetails=res.data
+      this.loader=false
+    })
   }
   adminName:any;
   getAdmin(){

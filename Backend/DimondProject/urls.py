@@ -19,7 +19,7 @@ from django.urls import path
 from DimondApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.emptyUrl),
+    # path('', views.emptyUrl),
     # common url start
     path('getPurchesUnits/',views.getPurchesUnits),
     path('getPaymentMethods/',views.getPaymentMethods),

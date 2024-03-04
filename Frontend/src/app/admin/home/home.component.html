@@ -30,9 +30,8 @@
     </div>
     <div class="row p-0 w-100 ">
         <div class="col-md-6 p-4 overflow-hidden">
-            <div class="w-100 h-auto rounded shadow-lg manageHeight"
-                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
-                <h2 class="fw-bold p-3">Available Paper stock
+            <div class="w-100 h-auto rounded shadow-lg manageHeight">
+                <h2 class="fw-bold p-3 m-0" style="background : linear-gradient(45deg,#156c89 0%,#00bfff 60%,#535085 60%,#535085 62%,#00bfff 62%,#00bfff 63%,#535085 63%,#535085 64%,#00bfff 64%,#00bfff 65%,yellow 65%,rgb(240, 239, 239) 80%)">Available Paper stock
                     <button class="float-end btn btn-primary btn-sm" (click)="checkPaperData()" *ngIf="!paperStock">Get
                         details
                     </button>
@@ -41,7 +40,8 @@
                     </button>
                 </h2>
                 <ng-container *ngIf="paperStock">
-                    <table class="table table-bordered table-hover table-responsive ">
+                    <div class="table-responsive">
+                    <table class="table table-bordered table-hover w-100">
                         <thead class="table-dark">
                             <tr>
                                 <th>Sr.&nbsp;No.</th>
@@ -57,13 +57,13 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </ng-container>
             </div>
         </div>
         <div class="col-md-6 p-4 overflow-hidden">
-            <div class="w-100 h-auto rounded shadow-lg manageHeight"
-                style="background: linear-gradient(45deg, rgb(238, 35, 35) 0%, rgb(243, 87, 157) 100%);">
-                <h2 class="fw-bold p-3">Available Cover stock
+            <div class="w-100 h-auto rounded shadow-lg manageHeight">
+                <h2 class="fw-bold p-3 m-0" style="background : linear-gradient(45deg,#156c89 0%,#00bfff 60%,#535085 60%,#535085 62%,#00bfff 62%,#00bfff 63%,#535085 63%,#535085 64%,#00bfff 64%,#00bfff 65%,yellow 65%,rgb(240, 239, 239) 80%)">Available Cover stock
                     <button class="float-end btn btn-primary btn-sm" (click)="checkCoverData()" *ngIf="!coverStock">Get
                         details
                     </button>
@@ -72,7 +72,8 @@
                     </button>
                 </h2>
                 <ng-container *ngIf="coverStock">
-                    <table class="table table-bordered table-hover table-responsive ">
+                    <div class="table-responsive">
+                    <table class="table table-bordered table-hover w-100">
                         <thead class="table-dark">
                             <tr>
                                 <th>Sr.&nbsp;No.</th>
@@ -88,15 +89,15 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </ng-container>
             </div>
         </div>
     </div>
     <div class="row p-0 w-100">
         <div class="col-md-6 p-4 overflow-hidden">
-            <div class="w-100 h-auto rounded shadow-lg manageHeight"
-                style="background: linear-gradient(45deg, rgb(220, 243, 87) 0%, rgb(238, 35, 167) 100%);">
-                <h2 class="fw-bold p-3">Available Product stock
+            <div class="w-100 h-auto rounded shadow-lg manageHeight">
+                <h2 class="fw-bold p-3 m-0" style="background : linear-gradient(45deg,#156c89 0%,#00bfff 60%,#535085 60%,#535085 62%,#00bfff 62%,#00bfff 63%,#535085 63%,#535085 64%,#00bfff 64%,#00bfff 65%,yellow 65%,rgb(240, 239, 239) 80%)">Available Product stock
                     <button class="float-end btn btn-primary btn-sm" (click)="checkProductData()"
                         *ngIf="!productStock">Get
                         details
@@ -107,7 +108,8 @@
                     </button>
                 </h2>
                 <ng-container *ngIf="productStock">
-                    <table class="table table-bordered table-hover table-responsive ">
+                    <div class="table-responsive">
+                    <table class="table table-bordered table-hover w-100">
                         <thead class="table-dark">
                             <tr>
                                 <th>Sr.&nbsp;No.</th>
@@ -123,6 +125,7 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
                 </ng-container>
             </div>
         </div>

@@ -200,7 +200,7 @@ export class CoverComponent implements OnInit {
       productName: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       unit: ['', Validators.required],
-      rate: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      rate: ['', Validators.required],
       amount: ['']
     });
   }

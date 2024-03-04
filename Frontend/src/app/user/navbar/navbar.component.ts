@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,5 +8,16 @@ import { Component, Input } from '@angular/core';
 })
 export class NavbarComponent {
   @Input()uPageName:any;
-
+  constructor(private api:ApiService){
+    this.getCompanyDetails()
+  }
+  loader=false
+  companyDetails:any
+  getCompanyDetails() {
+   this.loader=true
+    this.api.getCompanyInfo().subscribe((res: any) => {
+      this.companyDetails=res.data
+      this.loader=false
+    })
+  }
 }

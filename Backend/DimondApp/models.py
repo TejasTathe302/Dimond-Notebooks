@@ -138,6 +138,7 @@ class ManufactureDetailsModel(models.Model):
 class ManufactureProductDetailsModel(models.Model):
     productName=models.CharField(max_length=200)
     quantity=models.CharField(max_length=200)
+    pages=models.CharField(max_length=200,default=0)
     paper=models.CharField(max_length=200)
     cover=models.CharField(max_length=200)
     unit=models.CharField(max_length=200)

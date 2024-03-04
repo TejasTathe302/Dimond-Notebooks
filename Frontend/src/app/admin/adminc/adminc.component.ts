@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class AdmincComponent {
   adminpage: any = "adminc";
   loader = false;
+  ngModelValue11:any ;
   constructor(private api: ApiService, private router: Router) {
   }
   paymentMethod = false;
@@ -147,7 +148,7 @@ export class AdmincComponent {
       this.api.getPaymentMethod(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.name;
+        this.ngModelValue11 = res.data.name;
       })
     }
     else if (method === "Gst Percent Details") {
@@ -156,7 +157,7 @@ export class AdmincComponent {
       this.api.getGstPercent1(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.GstPercent;
+        this.ngModelValue11 = res.data.GstPercent;
       })
     }
     else if (method === "Purches Paper Customer Details") {
@@ -165,7 +166,7 @@ export class AdmincComponent {
       this.api.getPaperCustomerName(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.name;
+        this.ngModelValue11 = res.data.name;
       })
     }
     else if (method === "Purches Paper Product Details") {
@@ -174,7 +175,7 @@ export class AdmincComponent {
       this.api.getPurchesProductPaperName(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.name;
+        this.ngModelValue11 = res.data.name;
       })
     }
     else if (method === "Purches Cover Customer Details") {
@@ -183,7 +184,7 @@ export class AdmincComponent {
       this.api.getPurchesProductCoverPartyName(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.name;
+        this.ngModelValue11 = res.data.name;
       })
     }
     else if (method === "Purches Cover Product Details") {
@@ -192,7 +193,7 @@ export class AdmincComponent {
       this.api.getPurchesProductCoverName(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.name;
+        this.ngModelValue11 = res.data.name;
       })
     }
     else if (method === "Manufacturer Details") {
@@ -201,7 +202,7 @@ export class AdmincComponent {
       this.api.getManufacturerNamee(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.name;
+        this.ngModelValue11 = res.data.name;
       })
     }
     else if (method === "Manufactured Product Details") {
@@ -210,7 +211,7 @@ export class AdmincComponent {
       this.api.getManufacturedProductNamee(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.name;
+        this.ngModelValue11 = res.data.name;
       })
     }
     else if (method === "Sell Customer Details") {
@@ -219,7 +220,7 @@ export class AdmincComponent {
       this.api.getSellCustomer(id).subscribe((res: any) => {
         this.loader = false;
         this.openModel = !this.openModel
-        this.ngModelValue = res.data.name;
+        this.ngModelValue11 = res.data.name;
       })
     }
     else {
@@ -228,11 +229,9 @@ export class AdmincComponent {
     this.Action = "Edit"
     this.method = method
   }
-
-  ngModelValue: any;
   cancelEdit() {
     this.openModel = !this.openModel
-    this.ngModelValue = ''
+    this.ngModelValue11 = ''
     this.MethodId = 0
   }
   Action = ''
@@ -244,8 +243,8 @@ export class AdmincComponent {
   }
 
   EditDetails() {
-    const obj={"name":this.ngModelValue}
-    if(this.ngModelValue==''){
+    const obj={"name":this.ngModelValue11}
+    if(this.ngModelValue11==''){
       alert('Please Provide Correct Details...')
     }
     else{
@@ -263,7 +262,7 @@ export class AdmincComponent {
       })
     }
     else if (this.method === "Gst Percent Details") {
-      const obj1 = { "GstPercent": this.ngModelValue }
+      const obj1 = { "GstPercent": this.ngModelValue11 }
       this.loader = true;
       this.api.editGstPercent(this.MethodId, obj1).subscribe((res: any) => {
         if (res["status"] === "success") {
@@ -372,17 +371,17 @@ export class AdmincComponent {
 
     }
     this.openModel = !this.openModel
-    this.ngModelValue = '';
+    this.ngModelValue11 = '';
     this.method = ''
   }
   }
 
   AddNewDetails() {
-    if(this.ngModelValue==''){
+    if(this.ngModelValue11==''){
       alert('Please Provide Correct Details...')
     }
     else{
-    const obj = { "name": this.ngModelValue }
+    const obj = { "name": this.ngModelValue11 }
     if (this.method === 'paymentMethod') {
       this.loader = true;
       this.api.addPaymentMethod(obj).subscribe((res: any) => {
@@ -491,7 +490,7 @@ export class AdmincComponent {
       this.alert("error", "Oops...", "Something Went Wrong..!");
     }
     this.openModel = !this.openModel
-    this.ngModelValue = '';
+    this.ngModelValue11 = '';
     this.method = ''  
   }
   }

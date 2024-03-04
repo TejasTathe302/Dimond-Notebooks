@@ -3,8 +3,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <a routerLink="admin/"><img src="http://127.0.0.1:8000{{companyDetails?.logo}}" alt=""
-                        class="img-fluid logo-footer"></a>
+                <a routerLink="admin/">
+                    <ng-container *ngIf="companyDetails">
+                        <img src="http://127.0.0.1:8000{{companyDetails?.logo}}" alt="" class="img-fluid logo-footer">
+                    </ng-container>
+                </a>
                 <div class="footer-about">
                     <p>{{companyDetails?.description}}</p>
                 </div>
